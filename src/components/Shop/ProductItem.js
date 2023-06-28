@@ -2,21 +2,28 @@ import { useDispatch } from 'react-redux';
 import Card from '../UI/Card';
 import classes from './ProductItem.module.css';
 import { cartAction } from '../../store/cartSlice';
-import useAddToCart from '../../hooks/useAddToCart';
+// import useAddToCart from '../../hooks/useAddToCart';
 
 const ProductItem = (props) => {
   const { title, price, description, id } = props;
-  const {items, totalQuantity} = useAddToCart({ title, price, id })
+  // const {items, totalQuantity} = useAddToCart({ title, price, id })
 
   const dispatch = useDispatch()
 
-  const addToCart = () => {
-    dispatch(cartAction.replace({items, totalQuantity}))
-    // dispatch(cartAction.addItem({
-    //   id,
-    //   title, 
-    //   price,
-    // }))
+  const addToCart = async () => {
+    // dispatch(cartAction.replace({items, totalQuantity}))
+    // const response = await fetch("https://redux-b81f4-default-rtdb.firebaseio.com/cart.json", {
+    //   method: "PUT",
+    //   body: JSON.stringify({items, totalQuantity}),
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   }
+    // })
+    dispatch(cartAction.addItem({
+      id,
+      title, 
+      price,
+    }))
   }
 
   return (
