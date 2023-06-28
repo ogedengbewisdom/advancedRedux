@@ -1,0 +1,25 @@
+
+.notification {
+    width: 100%;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.01rem 10%;;
+    align-items: center;
+}
+
+.notification h2,
+.notification p {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.error {
+    background-color: rgba(255, 0, 0, 0.974);
+}
+
+.success {
+    background-color: rgba(0, 128, 0, 0.444);
+    color: white;
+}
+
