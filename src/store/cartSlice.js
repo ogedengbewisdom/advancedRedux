@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { uiActions } from "./uiSlice";
 
 const cartInitialState = {
     items: [],
@@ -65,6 +66,14 @@ const cartSlice = createSlice({
         }
     }
 })
+
+export const sendRequest = () => {
+    return (dispatch) => {
+        dispatch(uiActions.showNotification({
+            
+        }))
+    }
+}
 
 export const cartAction = cartSlice.actions
 
