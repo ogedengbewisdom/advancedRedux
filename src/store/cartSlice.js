@@ -67,7 +67,7 @@ const cartSlice = createSlice({
     }
 })
 
- const sendRequest = (cart) => {
+ export const sendRequest = (cart) => {
     return async (dispatch) => {
         dispatch(uiActions.showNotification({
             title: "Sending...",
