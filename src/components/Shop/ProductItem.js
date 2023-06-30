@@ -2,12 +2,12 @@ import { useDispatch } from 'react-redux';
 import Card from '../UI/Card';
 import classes from './ProductItem.module.css';
 import { cartAction } from '../../store/cartSlice';
-import useAddToCart from '../../hooks/useAddToCart';
-import { uiActions } from '../../store/uiSlice';
+// import useAddToCart from '../../hooks/useAddToCart';
+// import { uiActions } from '../../store/uiSlice';
 
 const ProductItem = (props) => {
   const { title, price, description, id } = props;
-  const {items, totalQuantity} = useAddToCart({ title, price, id })
+  // const {items, totalQuantity} = useAddToCart({ title, price, id })
 
   const dispatch = useDispatch()
 
@@ -41,7 +41,7 @@ const ProductItem = (props) => {
 
     
     // dispatch(sendRequest({items, totalQuantity}))
-    // dispatch(cartAction.addItem({ title, price, description, id }))
+    dispatch(cartAction.addItem({ title, price, description, id }))
   }
 
   return (
