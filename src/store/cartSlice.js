@@ -67,11 +67,42 @@ const cartSlice = createSlice({
     }
 })
 
-export const sendRequest = () => {
-    return (dispatch) => {
+ const sendRequest = (cart) => {
+    return async (dispatch) => {
         dispatch(uiActions.showNotification({
-            
+            title: "Sending...",
+            status: "pending",
+            message: "Sending Cart Data"
         }))
+
+        const sendCartData = async () => {
+            const response = await fetch("https://redux-b81f4-default-rtdb.firebaseio.com/cart.json", {
+                method: "PUT",
+                body: JSON.stringify(cart),
+                headers: {
+                    "Content-Type" : "application/json"
+                }
+            })
+            if (!response.ok) {
+               throw new Error("Something went wrong")
+            }
+        }
+        try {
+            await sendCartData()
+            dispatch(uiActions.showNotification({
+                title: "Success",
+                status: "success",
+                message: "Cart Data send successfully"
+            }))
+        }
+        catch(error) {
+            dispatch(uiActions.showNotification({
+                title: "Failed",
+                status: "error",
+                message: "Failed to send cart data"
+            }))
+        }
+        
     }
 }
 
