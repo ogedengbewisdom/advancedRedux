@@ -7,6 +7,9 @@
     padding: 0.01rem 10%;;
     align-items: center;
 }
+.display {
+    display: none;
+}
 
 .notification h2,
 .notification p {
