@@ -5,7 +5,8 @@ import Products from './components/Shop/Products';
 import { useDispatch, useSelector } from 'react-redux';
 import { Fragment } from 'react';
 import Notification from './components/UI/Notification';
-import { uiActions } from './store/uiSlice';
+import { sendRequest } from './store/cartSlice';
+// import { uiActions } from './store/uiSlice';
 // import { useRef } from 'react';
 
 
@@ -105,6 +106,15 @@ function App() {
 //     }))
 //   })
 // }, [cart, dispatch])
+
+useEffect(() => {
+  if (isInitial) {
+    isInitial = false;
+    return
+  }
+  dispatch(sendRequest(cart))
+},[cart, dispatch])
+
   return (
       <Fragment>
         {notification && <Notification title={notification.title} message={notification.message} status={notification.status} />}
