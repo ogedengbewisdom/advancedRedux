@@ -1,3 +1,4 @@
+
 import classes from "./Notification.module.css"
 
 const Notification = (props) => {
@@ -11,6 +12,7 @@ const Notification = (props) => {
 
     let combinedClasses = `${classes.notification} ${specialClasses}`
 
+    
     return (
         <section className={combinedClasses}>
             <h2>{props.title}</h2>
