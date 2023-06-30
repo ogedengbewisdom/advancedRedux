@@ -2,28 +2,46 @@ import { useDispatch } from 'react-redux';
 import Card from '../UI/Card';
 import classes from './ProductItem.module.css';
 import { cartAction } from '../../store/cartSlice';
-// import useAddToCart from '../../hooks/useAddToCart';
+import useAddToCart from '../../hooks/useAddToCart';
+import { uiActions } from '../../store/uiSlice';
 
 const ProductItem = (props) => {
   const { title, price, description, id } = props;
-  // const {items, totalQuantity} = useAddToCart({ title, price, id })
+  const {items, totalQuantity} = useAddToCart({ title, price, id })
 
   const dispatch = useDispatch()
 
   const addToCart = async () => {
+    // dispatch(uiActions.showNotification({
+    //   title: "Sending...",
+    //   status: "pending",
+    //   message: "sending cart data"
+    // }))
     // dispatch(cartAction.replace({items, totalQuantity}))
-    // const response = await fetch("https://redux-b81f4-default-rtdb.firebaseio.com/cart.json", {
-    //   method: "PUT",
-    //   body: JSON.stringify({items, totalQuantity}),
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   }
-    // })
-    dispatch(cartAction.addItem({
-      id,
-      title, 
-      price,
-    }))
+    // try {
+    //   const response = await fetch("https://redux-b81f4-default-rtdb.firebaseio.com/cart.json", {
+    //     method: "PUT",
+    //     body: JSON.stringify({items, totalQuantity}),
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     }
+    //   })
+    //   dispatch(uiActions.showNotification({
+    //     title: "Success",
+    //     status: "success",
+    //     message: "send cart data"
+    //   }))
+    // } catch(error) {
+    //   dispatch(uiActions.showNotification({
+    //     title: "Failed",
+    //     status: "error",
+    //     message: error.message
+    //   }))
+    // }
+
+    
+    // dispatch(sendRequest({items, totalQuantity}))
+    // dispatch(cartAction.addItem({ title, price, description, id }))
   }
 
   return (
