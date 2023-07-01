@@ -1,21 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { uiActions } from "./uiSlice";
+// import { uiActions } from "./uiSlice";
 
 const cartInitialState = {
     items: [],
-    totalQuantity: 0
+    totalQuantity: 0,
+    changed: null
 }
 
 const cartSlice = createSlice({
     name: "cart",
     initialState: cartInitialState,
     reducers: {
-        toggle( state ) {
-            state.showCart = !state.showCart
-        },
         replace (state, action) {
-            state.items = action.payload.items
-            state.totalQuantity = action.payload.totalQuantity
+            state.items = action.payload.items;
+            state.totalQuantity = action.payload.totalQuantity;
+            state.changed = false
         },
         addItem(state, action) {
             const newItemId = action.payload
@@ -23,6 +22,7 @@ const cartSlice = createSlice({
             const existingItem = state.items[existingItemIndex]
             let updatedItems
             state.totalQuantity = state.totalQuantity + 1
+            state.changed = true
 
             if (!existingItem) {
                     updatedItems = state.items.concat({
@@ -48,7 +48,7 @@ const cartSlice = createSlice({
             const existingItemIndex = state.items.findIndex(item => item.id === newItemId);
             const existingItem = state.items[existingItemIndex];
             state.totalQuantity = state.totalQuantity - 1;
-
+            state.changed = true
             let updatedItems;
             if (existingItem.quantity === 1) {
                 updatedItems =state.items.filter(item => item.id !== newItemId)
@@ -67,44 +67,44 @@ const cartSlice = createSlice({
     }
 })
 
- export const sendRequest = (cart) => {
-    return async (dispatch) => {
-        dispatch(uiActions.showNotification({
-            title: "Sending...",
-            status: "pending",
-            message: "Sending Cart Data"
-        }))
+//  export const sendRequest = (cart) => {
+//     return async (dispatch) => {
+//         dispatch(uiActions.showNotification({
+//             title: "Sending...",
+//             status: "pending",
+//             message: "Sending Cart Data"
+//         }))
 
-        const sendCartData = async () => {
-            const response = await fetch("https://redux-b81f4-default-rtdb.firebaseio.com/cart.json", {
-                method: "PUT",
-                body: JSON.stringify(cart),
-                headers: {
-                    "Content-Type" : "application/json"
-                }
-            })
-            if (!response.ok) {
-               throw new Error("Something went wrong")
-            }
-        }
-        try {
-            await sendCartData()
-            dispatch(uiActions.showNotification({
-                title: "Success",
-                status: "success",
-                message: "Cart Data send successfully"
-            }))
-        }
-        catch(error) {
-            dispatch(uiActions.showNotification({
-                title: "Failed",
-                status: "error",
-                message: "Failed to send cart data"
-            }))
-        }
+//         const sendCartData = async () => {
+//             const response = await fetch("https://redux-b81f4-default-rtdb.firebaseio.com/cart.json", {
+//                 method: "PUT",
+//                 body: JSON.stringify(cart),
+//                 headers: {
+//                     "Content-Type" : "application/json"
+//                 }
+//             })
+//             if (!response.ok) {
+//                throw new Error("Something went wrong")
+//             }
+//         }
+//         try {
+//             await sendCartData()
+//             dispatch(uiActions.showNotification({
+//                 title: "Success",
+//                 status: "success",
+//                 message: "Cart Data send successfully"
+//             }))
+//         }
+//         catch(error) {
+//             dispatch(uiActions.showNotification({
+//                 title: "Failed",
+//                 status: "error",
+//                 message: "Failed to send cart data"
+//             }))
+//         }
         
-    }
-}
+//     }
+// }
 
 export const cartAction = cartSlice.actions
 
