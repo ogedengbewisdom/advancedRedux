@@ -5,7 +5,7 @@ import Products from './components/Shop/Products';
 import { useDispatch, useSelector } from 'react-redux';
 import { Fragment } from 'react';
 import Notification from './components/UI/Notification';
-import { sendRequest } from './store/cartSlice';
+import { fetchData, sendRequest } from './store/cartAction';
 // import { uiActions } from './store/uiSlice';
 // import { useRef } from 'react';
 
@@ -108,11 +108,17 @@ function App() {
 // }, [cart, dispatch])
 
 useEffect(() => {
+  dispatch(fetchData())
+}, [dispatch])
+
+useEffect(() => {
   if (isInitial) {
     isInitial = false;
     return
   }
-  dispatch(sendRequest(cart))
+  if (cart.changed) {
+    dispatch(sendRequest(cart))
+  }
 },[cart, dispatch])
 
   return (
